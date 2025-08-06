@@ -13,14 +13,17 @@ The deployable feature of the app expects data files(.rds) n the data/ directory
 To run this app locally, follow the steps below:
 
 ## 1. R version checks ##
- Check you R version in R Studio using command: ```r R.version.string ```
+ Check you R version in R Studio using command: 
+ ```r 
+ R.version.string
+```
  This app requires R version >= 4.3.0
 
  ## 2. Git Clone the repository ##
  git clone https://github.com/kapoormuskan/Pig_Immune_Tissue_ShinyApp.git
  cd Pig_Immune_Tissue_ShinyApp
 
- ## 3. Install required packages for app by running the following commands: ""
+ ## 3. Install required packages for app by running the following commands: 
  ```r
 setwd("path/to/Pig_Immune_Tissue_ShinyApp")  # replace this with your path
 packages <- readLines("r-requirements.txt")
@@ -33,4 +36,4 @@ shiny::runApp('.', launch.browser = TRUE)
 ```
 
 ## ShinyPIGGI citation ##
-
+Add citation below...
