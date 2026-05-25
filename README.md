@@ -21,6 +21,7 @@ To run this app locally, follow the steps below:
 
  ## 2. Git Clone the repository ##
  git clone https://github.com/kapoormuskan/Pig_Immune_Tissue_ShinyApp.git
+ 
  cd Pig_Immune_Tissue_ShinyApp
 
  ## 3. Install required packages for app by running the following commands: 
@@ -29,11 +30,15 @@ setwd("path/to/Pig_Immune_Tissue_ShinyApp")  # replace this with your path
 packages <- readLines("r-requirements.txt")
 install.packages(packages, repos = "https://cloud.r-project.org")
 ```
-
+## 4. For reference mapping page run the scripts/reference_mapping_BM_SP.R script in either Rstudio or terminal and add the .rds object to shiny app ##
+```r
+source("scripts/reference_mapping_BM_SP.R")
+Rscript scripts/reference_mapping_BM_SP.R
+```
 ## 4. Launch the app inside R studio itself ##
 ```r
 shiny::runApp('.', launch.browser = TRUE)
 ```
 
 ## ShinyPIGGI citation ##
-Add citation below...
+Wiarda JE, Kapoor M, Sivasankaran SK, Byrne KA, Loving CL and Tuggle CK (2026) A single-cell immune atlas of primary and secondary lymphoid organs in pigs. Front. Immunol. 17:1704257. doi: 10.3389/fimmu.2026.1704257
