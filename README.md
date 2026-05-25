@@ -33,9 +33,11 @@ install.packages(packages, repos = "https://cloud.r-project.org")
 ## 4. For reference mapping page run the scripts/reference_mapping_BM_SP.R script in either Rstudio or terminal and add the .rds object to shiny app ##
 ```r
 source("scripts/reference_mapping_BM_SP.R")
-Rscript scripts/reference_mapping_BM_SP.R
 ```
-## 4. Launch the app inside R studio itself ##
+# for bash 
+Rscript scripts/reference_mapping_BM_SP.R
+
+## 5. Launch the app inside R studio itself ##
 ```r
 shiny::runApp('.', launch.browser = TRUE)
 ```
