@@ -34,7 +34,7 @@ install.packages(packages, repos = "https://cloud.r-project.org")
 ```r
 source("scripts/reference_mapping_BM_SP.R")
 ```
-# for Bash
+-> for Bash
 Rscript scripts/reference_mapping_BM_SP.R
 
 ## 5. Launch the app inside R studio itself ##
