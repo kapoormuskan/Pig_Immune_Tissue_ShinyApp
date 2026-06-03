@@ -20,3 +20,4 @@ shinycssloaders==1.1.0
 shinyalert==3.1.0
 shinythemes==1.2.0
 shiny==1.10.0
+glmGamPoi
