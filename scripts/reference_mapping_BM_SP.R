@@ -10,10 +10,17 @@ library(readxl)
 library(writexl)
 library(ggplot2)
 library(scales)
+library(glmGamPoi)
+
+# Auto-detect output directory, directly saves to app's data/directory
+script_dir <- dirname(rstudioapi::getSourceEditorContext()$path)
+output_dir <- normalizePath(file.path(script_dir, "../data"), mustWork = FALSE)
+dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
+
 
 #load reference(example: BM) .rds file and query(example: SP) .rds datasets
-ref <- readRDS('data/data/PigImmuneMultiTissue_BoneMarrow_CellTypeAnnotated_HBBhiRemoved.rds')
-query <- readRDS('data/data/PigImmuneMultiTissue_Spleen_CellTypeAnnotated_HBBhiRemoved.rds')
+ref <- readRDS(file.path(script_dir, "../data/PigImmuneMultiTissue_BoneMarrow_CellTypeAnnotated_HBBhiRemoved.rds"))
+query <- readRDS(file.path(script_dir, "../data/PigImmuneMultiTissue_Spleen_CellTypeAnnotated_HBBhiRemoved.rds"))
 
 # Use SCTransform or perform SCTransform on both datasets
 #SCT normalizes library soze effects and is used for anchor based integration, this wilol retian all genes in SCT assay 
@@ -84,9 +91,9 @@ DefaultAssay(query) <- "RNA"
 query <- AddMetaData(query, metadata = merged_meta)
 
 #saving results
-write_xlsx(predictions.df, "/work/ABG/MUSKAN/ShinyTissues/test-script/RefMap/BM-SP/BoneMarrowToSpleen_CellTypePredictions.xlsx")
-write_xlsx(mapping.df, "/work/ABG/MUSKAN/ShinyTissues/test-script/RefMap/BM-SP/BoneMarrowToSpleen_MappingScores.xlsx")
-saveRDS(query, file = "/work/ABG/MUSKAN/ShinyTissues/test-script/RefMap/BM-SP/BoneMarrowToSpleen_Annotated.rds")
+write_xlsx(predictions.df, file.path(output_dir, "BoneMarrowToSpleen_CellTypePredictions.xlsx"))
+write_xlsx(mapping.df, file.path(output_dir, "BoneMarrowToSpleen_MappingScores.xlsx"))
+saveRDS(query, file = file.path(output_dir, "BoneMarrowToSpleen_Annotated.rds"))
 
 #visualiztion of mapping scores - QC
 FeaturePlot(query, features = "MappingScores", reduction = "tsne", min.cutoff = 0.4) + scale_color_gradientn(colors = c('white', 'yellow', 'orange', 'red'))
