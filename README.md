@@ -33,6 +33,7 @@ install.packages(packages, repos = "https://cloud.r-project.org")
 ## 4. For reference mapping page run the scripts/reference_mapping_BM_SP.R script in either Rstudio or terminal and add the .rds object to shiny app ##
 ```r
 source("scripts/reference_mapping_BM_SP.R")
+BiocManager::install("glmGamPoi") #for faster analysis
 ```
 -> for Bash
 Rscript scripts/reference_mapping_BM_SP.R
