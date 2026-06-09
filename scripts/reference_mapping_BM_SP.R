@@ -89,6 +89,8 @@ rownames(merged_meta) <- merged_meta$CellBarcodes
 #now add metadata to seurat with default assay RNA
 DefaultAssay(query) <- "RNA"
 query <- AddMetaData(query, metadata = merged_meta)
+query <- RunPCA(query, npcs = 50)
+query <- RunUMAP(query, dims = 1:30, reduction = "pca")
 
 #saving results
 write_xlsx(predictions.df, file.path(output_dir, "BoneMarrowToSpleen_CellTypePredictions.xlsx"))
