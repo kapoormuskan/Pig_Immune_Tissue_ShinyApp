@@ -86,11 +86,15 @@ colnames(mapping.df)[1] <- "MappingScores"
 #Merging predictions & mapping scores by cell barcodes (musta have same cells in same order)
 merged_meta <- merge(predictions.df, mapping.df, by = "CellBarcodes")
 rownames(merged_meta) <- merged_meta$CellBarcodes
+
+#run PCA again on SCT assay
+query <- RunPCA(query, assay = "SCT", npcs = 50)
+query <- RunUMAP(query, dims = 1:30, reduction = "pca")
+
 #now add metadata to seurat with default assay RNA
 DefaultAssay(query) <- "RNA"
 query <- AddMetaData(query, metadata = merged_meta)
-query <- RunPCA(query, npcs = 50)
-query <- RunUMAP(query, dims = 1:30, reduction = "pca")
+
 
 #saving results
 write_xlsx(predictions.df, file.path(output_dir, "BoneMarrowToSpleen_CellTypePredictions.xlsx"))
@@ -98,9 +102,9 @@ write_xlsx(mapping.df, file.path(output_dir, "BoneMarrowToSpleen_MappingScores.x
 saveRDS(query, file = file.path(output_dir, "BoneMarrowToSpleen_Annotated.rds"))
 
 #visualiztion of mapping scores - QC
-FeaturePlot(query, features = "MappingScores", reduction = "tsne", min.cutoff = 0.4) + scale_color_gradientn(colors = c('white', 'yellow', 'orange', 'red'))
+FeaturePlot(query, features = "MappingScores", reduction = "umap", min.cutoff = 0.4) + scale_color_gradientn(colors = c('white', 'yellow', 'orange', 'red'))
 #UMAP for predicted cell types
-DimPlot(query, group.by = "predicted.id", reduction = "tsne", label = TRUE, repel = TRUE) + ggtitle("Predicted Cell Types (from Reference)")
+DimPlot(query, group.by = "predicted.id", reduction = "umap", label = TRUE, repel = TRUE) + ggtitle("Predicted Cell Types (from Reference)")
 #violin plot of mapping scores plotted per predicted cell type
 VlnPlot(query, features = "MappingScores", group.by = "predicted.id") + ggtitle("Mapping Score by Predicted Cell Type")
 #how confidently it matches to predicted cell type?
